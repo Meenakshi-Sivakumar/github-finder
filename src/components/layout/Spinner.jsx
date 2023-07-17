@@ -1,8 +1,9 @@
+import spinner from '../assets/spinner.gif'
 
 function Spinner() {
   return (
-    <div>
-      hey
+    <div className='w-100 mt-20'>
+      <img src={spinner} alt='Loading...' width={60} className='text-center mx-auto' />
     </div>
   )
 }
