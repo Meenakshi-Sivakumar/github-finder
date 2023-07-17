@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import Spinner from "../layout/Spinner";
 
 function UserResults() {
     const [users, setUsers] = useState([]);
@@ -8,10 +9,15 @@ function UserResults() {
     },[])
 
     const fetchUsers = async () => {
-        const response = await fetch (`${process.env.REACT_APP_GITHUB_URL}/users`)
+        const response = await fetch (`${process.env.REACT_APP_GITHUB_URL}/users`,
+        {
+            headers: {
+                Authorization: `Bearer ${process.env.REACT_APP_GITHUB_TOKEN}`
+            }
+        }
+        )
         if (response.ok) {
             const data = await response.json();
-            console.log(data);
             setUsers(data);
             setLoading(false);
         } else {
@@ -26,7 +32,7 @@ function UserResults() {
         )}
     </div>
   )} else {
-    return <h3>Loading...</h3>
+    return <Spinner />
   }
 }
 
