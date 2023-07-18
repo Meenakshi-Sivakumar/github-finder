@@ -10,7 +10,7 @@ function App() {
   return (
     <GithubProvider>
     <Router >
-    <div className="flex flex-col justify-between bg-gray-600 h-screen">
+    <div className="flex flex-col justify-between bg-gray-600 min-h-screen">
       <Navbar />
       <main className="mx-auto container px-3 pb-12">
         <Routes>
@@ -28,4 +28,3 @@ function App() {
 }
 
 export default App
-//good
