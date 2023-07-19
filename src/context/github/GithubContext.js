@@ -61,16 +61,19 @@ export const GithubProvider = ({children}) => {
     //get user repos
     const getUserRepos = async (login) => {
         setLoading()
-
-        const response = await fetch (`${GITHUB_URL}/users/${login}/repos`)
+        const params = new URLSearchParams({
+            sort: 'created',
+            per_page: 5
+        })
+        const response = await fetch (`${GITHUB_URL}/users/${login}/repos?${params}`)
         if (response.ok) {
             const data = await response.json();
             dispatch({
-                type: 'GET_Repos',
+                type: 'GET_REPOS',
                 payload: data,
             })
     }
-
+    }
     const setLoading = () => {
         dispatch({
             type: 'SET_LOADING'
@@ -84,6 +87,5 @@ export const GithubProvider = ({children}) => {
     return <GithubContext.Provider value={{users: state.users, user: state.user,repos: state.repos, loading: state.loading, searchUsers, clearUsers, getUser, getUserRepos}}>
         {children}
     </GithubContext.Provider>
-}
 }
 export default GithubContext

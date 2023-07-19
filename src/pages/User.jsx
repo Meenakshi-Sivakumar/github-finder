@@ -1,17 +1,18 @@
 import { useEffect, useContext } from "react"
 import { useParams } from "react-router-dom"
-import {FaCodepen, FaStore, FaUserFriends, FaUsers} from 'react-icons/fa'
+import {FaArrowLeft, FaCodepen, FaStore, FaUserFriends, FaUsers} from 'react-icons/fa'
 import Spinner from "../components/layout/Spinner"
 import GithubContext from "../context/github/GithubContext"
+import RepoList from "../components/repos/RepoList"
 import { Link } from "react-router-dom"
 
 function User() {
-    const {getUser, user, loading} = useContext(GithubContext)
+    const {getUser, user, loading, getUserRepos, repos} = useContext(GithubContext)
     const params = useParams()
     
     useEffect(() => {
         getUser(params.login)
-        //getUserRepos(params.login)
+        getUserRepos(params.login)
     }, [])
 
     const {
@@ -39,7 +40,7 @@ function User() {
       <div className='w-full mx-auto lg:w-10/12'>
         <div className='mb-4'>
           <Link to='/' className='btn btn-ghost'>
-            Back To Search
+            <FaArrowLeft />Back To Search
           </Link>
         </div>
 
@@ -157,7 +158,7 @@ function User() {
           </div>
         </div>
 
-        {/*<RepoList repos={repos} />*/}
+        <RepoList repos={repos} />
       </div>
     </>
   )
