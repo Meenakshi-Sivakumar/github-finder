@@ -10,6 +10,7 @@ export const GithubProvider = ({children}) => {
     const initialState = {
         users: [],
         user: {},
+        repos: [],
         loading: false
     }
 
@@ -45,15 +46,9 @@ export const GithubProvider = ({children}) => {
     const getUser = async (login) => {
         setLoading()
 
-        const response = await fetch (`${GITHUB_URL}/users/${login}`,
-        // {
-        //     headers: {
-        //         Authorization: `token ${GITHUB_TOKEN}`
-        //     }
-        // }
-        )
+        const response = await fetch (`${GITHUB_URL}/users/${login}`)
         if (response.ok) {
-            const {data} = await response.json();
+            const data = await response.json();
             dispatch({
                 type: 'GET_USER',
                 payload: data,
@@ -61,6 +56,19 @@ export const GithubProvider = ({children}) => {
         } else {
             window.location = '/notfound'
         }
+    }
+
+    //get user repos
+    const getUserRepos = async (login) => {
+        setLoading()
+
+        const response = await fetch (`${GITHUB_URL}/users/${login}/repos`)
+        if (response.ok) {
+            const data = await response.json();
+            dispatch({
+                type: 'GET_Repos',
+                payload: data,
+            })
     }
 
     const setLoading = () => {
@@ -73,9 +81,9 @@ export const GithubProvider = ({children}) => {
             type: 'CLEAR_USERS'
         })
     }
-    return <GithubContext.Provider value={{users: state.users, user: state.user, loading: state.loading, searchUsers, clearUsers, getUser}}>
+    return <GithubContext.Provider value={{users: state.users, user: state.user,repos: state.repos, loading: state.loading, searchUsers, clearUsers, getUser, getUserRepos}}>
         {children}
     </GithubContext.Provider>
 }
-
-export default GithubContext;
+}
+export default GithubContext
