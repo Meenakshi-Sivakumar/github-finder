@@ -12,7 +12,7 @@ Github Profile Finder is a web application built using React.js that allows user
 
 ## Live Demo
 
-Check out the live demo of the project: [Github Profile Finder - Live Demo](https://github-profile-finder-01-ten.vercel.app/)
+Check out the live demo of the project: [live demo](https://github-profile-finder-01-ten.vercel.app/)
 
 ## Technologies Used
 
